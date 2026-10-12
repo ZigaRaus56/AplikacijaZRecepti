@@ -1,0 +1,23 @@
+$kind: http-request
+url: http://localhost:8080/api/recepti/1
+method: PUT
+body:
+  type: json
+  content: "  {\r
+
+    \    \"naslov\": \"Palačinke\",\r
+
+    \    \"opis\": \"Palačinke študentske\",\r
+
+    \    \"sestavine\": \"Moka, jajca, olje, mleko\",\r
+
+    \    \"navodila\": \"Vse zmešaj in speči na ponvi\",\r
+
+    \    \"casKuhanja\": 20,\r
+
+    \    \"porcije\": 6,\r
+
+    \    \"kategorija\": \"Sladice\"\r
+
+    \  }"
+order: 3000
