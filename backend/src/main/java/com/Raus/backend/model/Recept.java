@@ -2,15 +2,13 @@ package com.Raus.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-@JsonPropertyOrder({"id", "naslov", "opis", "sestavine", "navodila",
-                    "casKuhanja", "porcije", "kategorija"})
+@JsonPropertyOrder({"id", "naslov", "opis", "sestavine", "navodila","casKuhanja", "porcije", "kategorija"})
 
 public class Recept {
 
@@ -19,14 +17,8 @@ public class Recept {
     private Long id;
 
     private String naslov;
-
-    @Column(length = 1000)
     private String opis;
-
-    @Column(length = 2000)
     private String sestavine;
-
-    @Column(length = 4000)
     private String navodila;
 
     private int casKuhanja;
