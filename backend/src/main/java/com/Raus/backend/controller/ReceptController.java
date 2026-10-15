@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Raus.backend.model.Recept;
 import com.Raus.backend.repository.ReceptRepository;
 
-import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/api/recepti")
 public class ReceptController {
@@ -36,12 +34,12 @@ public class ReceptController {
     }
 
     @PostMapping
-    public Recept create(@Valid @RequestBody Recept r) {
+    public Recept create(@RequestBody Recept r) {
         return rep.save(r);
     }
 
     @PutMapping("/{id}")
-    public Recept update(@PathVariable Long id,@Valid @RequestBody Recept r) {
+    public Recept update(@PathVariable Long id, @RequestBody Recept r) {
         r.setId(id);
         return rep.save(r);
     }
