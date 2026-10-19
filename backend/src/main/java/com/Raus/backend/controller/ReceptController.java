@@ -20,7 +20,6 @@ import com.Raus.backend.repository.ReceptRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 
 @Tag (name = "Recepti", description = "CRUD operacije")
 @RestController
@@ -49,7 +48,7 @@ public class ReceptController {
     @ApiResponse (responseCode= "201", description="Recept ustvarjen")
     @ApiResponse (responseCode="400", description="Napaka")
     @PostMapping
-    public Recept create(@Valid @RequestBody Recept r) {
+    public Recept create(@RequestBody Recept r) {
         return rep.save(r);
     }
 
@@ -57,7 +56,7 @@ public class ReceptController {
     @ApiResponse (responseCode= "200", description="Recept posodobljen")
     @ApiResponse (responseCode="404", description="Recept ne obstaja")
     @PutMapping("/{id}")
-    public Recept update(@PathVariable Long id,@Valid @RequestBody Recept r) {
+    public Recept update(@PathVariable Long id, @RequestBody Recept r) {
         r.setId(id);
         return rep.save(r);
     }
