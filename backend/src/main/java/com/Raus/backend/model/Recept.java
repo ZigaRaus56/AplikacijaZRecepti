@@ -1,11 +1,19 @@
 package com.Raus.backend.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @JsonPropertyOrder({"id", "naslov", "opis", "sestavine", "navodila","casKuhanja", "porcije", "kategorija"})
@@ -18,12 +26,18 @@ public class Recept {
 
     private String naslov;
     private String opis;
-    private String sestavine;
+    @OneToMany(cascade= CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+    @JoinColumn (name = "recept_id")
+    private List<Sestavina> sestavine = new ArrayList<>();
+
     private String navodila;
 
     private int casKuhanja;
     private int porcije;
-    private String kategorija;
+
+    @ManyToOne 
+    @JoinColumn(name = "kategorija.id")
+    private Kategorija kategorija;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -34,8 +48,12 @@ public class Recept {
     public String getOpis() { return opis; }
     public void setOpis(String opis) { this.opis = opis; }
 
-    public String getSestavine() { return sestavine; }
-    public void setSestavine(String sestavine) { this.sestavine = sestavine; }
+    public List<Sestavina> getSestavine(){
+        return sestavine;
+    }
+    public void setSestavine(List<Sestavina> sestavine){
+        this.sestavine = sestavine;
+    }
 
     public String getNavodila() { return navodila; }
     public void setNavodila(String navodila) { this.navodila = navodila; }
@@ -46,6 +64,6 @@ public class Recept {
     public int getPorcije() { return porcije; }
     public void setPorcije(int porcije) { this.porcije = porcije; }
 
-    public String getKategorija() { return kategorija; }
-    public void setKategorija(String kategorija) { this.kategorija = kategorija; }
+    public Kategorija getKategorija() { return kategorija; }
+    public void setKategorija(Kategorija kategorija) { this.kategorija = kategorija; }
 }
