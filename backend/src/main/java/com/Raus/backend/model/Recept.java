@@ -36,7 +36,7 @@ public class Recept {
     private int porcije;
 
     @ManyToOne 
-    @JoinColumn(name = "kategorija.id")
+    @JoinColumn(name = "kategorija_id")
     private Kategorija kategorija;
 
     public Long getId() { return id; }

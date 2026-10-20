@@ -46,7 +46,6 @@ public class ReceptController {
 
     @Operation (summary = "Ustvari nov recept")
     @ApiResponse (responseCode= "201", description="Recept ustvarjen")
-    @ApiResponse (responseCode="400", description="Napaka")
     @PostMapping
     public Recept create(@RequestBody Recept r) {
         return rep.save(r);

@@ -38,6 +38,7 @@ public class KategorijaController {
     @Operation (summary="Ustvari kategorijo")
     @PostMapping 
     public Kategorija create(@RequestBody Kategorija k){
+        k.setId(null);
         return rep.save(k);
     }
     
