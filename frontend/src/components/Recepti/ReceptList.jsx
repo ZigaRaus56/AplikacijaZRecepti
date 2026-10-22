@@ -18,6 +18,7 @@ export default function ReceptList(){
             {recepti.map((r) => (
                 <li key={r.id}>
                     <Link to= {`/recepti/${r.id}`}>{r.naslov}</Link>{" "}
+                    ({r.porcije} porcij){" "}
                     <Link to= {`/recepti/${r.id}/uredi`}>Uredi</Link>{" "}
                     <button onClick={() => izbrisi(r.id)}>izbrisi</button>
                 </li>
