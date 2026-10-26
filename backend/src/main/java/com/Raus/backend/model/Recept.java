@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +17,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
-@JsonPropertyOrder({"id", "naslov", "opis", "sestavine", "navodila","casKuhanja", "porcije", "kategorija"})
+@JsonPropertyOrder({"id", "naslov", "opis", "sestavine", "navodila","casKuhanja", "porcije", "kategorija", "Zahtevnost"})
 
 public class Recept {
 
@@ -34,6 +37,10 @@ public class Recept {
 
     private int casKuhanja;
     private int porcije;
+
+    @Enumerated (EnumType.STRING)
+    private Zahtevnost zahtevnost;
+
 
     @ManyToOne 
     @JoinColumn(name = "kategorija_id")
@@ -66,4 +73,11 @@ public class Recept {
 
     public Kategorija getKategorija() { return kategorija; }
     public void setKategorija(Kategorija kategorija) { this.kategorija = kategorija; }
+
+    public Zahtevnost getZahtevnost(){
+        return zahtevnost;
+    }
+    public void setZahtevnost(Zahtevnost zahtevnost){
+        this.zahtevnost = zahtevnost;
+    }
 }

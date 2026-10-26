@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Raus.backend.model.Recept;
+import com.Raus.backend.model.Zahtevnost;
 import com.Raus.backend.repository.ReceptRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,10 +33,34 @@ public class ReceptController {
     @Autowired 
     private ReceptRepository rep;
 
-    @Operation (summary = "Vrne vse recepte")
     @GetMapping
-    public List<Recept> getAll() {
-        return rep.findAll();
+    @Operation (summary = "Vrne recepte z iskanjem in filtri")
+    public List<Recept> getAll(
+        @RequestParam (required=false) String iskanje,
+        @RequestParam (required=false) Long kategorijaId,
+        @RequestParam (required=false) Integer maxCas,
+        @RequestParam (required=false) Zahtevnost zahtevnost) {
+
+        Specification<Recept> spec = (root, query, cb) -> cb.conjunction();
+
+        if (iskanje != null && !iskanje.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.<String>get("naslov")), "%" + iskanje.trim().toLowerCase() + "%"));
+        }
+        if (kategorijaId != null) {
+            spec = spec.and((root, query, cb) ->
+                cb.equal(root.get("kategorija").get("id"), kategorijaId));
+        }
+        if (maxCas != null) {
+            spec = spec.and((root, query, cb) ->
+                cb.lessThanOrEqualTo(root.<Integer>get("casKuhanja"), maxCas));
+        }
+        if (zahtevnost != null) {
+            spec = spec.and((root, query, cb) ->
+                cb.equal(root.get("zahtevnost"), zahtevnost));
+        }
+
+        return rep.findAll(spec);
     }
 
     @Operation (summary = "Vrne en recept po idju")

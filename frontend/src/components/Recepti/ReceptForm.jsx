@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getRecept, createRecept, updateRecept, getKategorije } from "../../services/ReceptService";
+import { ZAHTEVNOSTI } from "../../constants";
 
-const PRAZEN = {naslov: "", opis: "", navodila: "", casKuhanja: 0, porcije: 1, kategorijaId: "", sestavine: [{naziv: "", kolicina: 0, enota: ""}],};
+const PRAZEN = {naslov: "", opis: "", navodila: "", casKuhanja: 0, porcije: 1, kategorijaId: "", sestavine: [{naziv: "", kolicina: 0, enota: ""}], zahtevnost: "SREDNJE"};
 
 export default function ReceptForm(){
     const {id} = useParams();
@@ -16,7 +17,7 @@ export default function ReceptForm(){
 
     useEffect(() => {
     if (!id) return setForma(PRAZEN);
-    getRecept(id).then((r) =>setForma({ ...r, kategorijaId: r.kategorija?.id ?? "" }));
+    getRecept(id).then((r) =>setForma({ ...r, kategorijaId: r.kategorija?.id ?? "", zahtevnost: r.zahtevnost ?? "SREDNJE", }));
     }, [id]);
 
     const spremeni = (e) => setForma({...forma, [e.target.name]: e.target.value});
@@ -37,6 +38,7 @@ export default function ReceptForm(){
             navodila: forma.navodila,
             casKuhanja: Number(forma.casKuhanja),
             porcije: Number(forma.porcije),
+            zahtevnost: forma.zahtevnost,
             kategorija: forma.kategorijaId ? { id: Number(forma.kategorijaId) } : null,
             sestavine: forma.sestavine.map((s) => ({
             naziv: s.naziv, kolicina: Number(s.kolicina), enota: s.enota,
@@ -61,6 +63,14 @@ export default function ReceptForm(){
         </select>
       </p>
 
+      <label>
+        Zahtevnost:{" "}
+        <select name="zahtevnost" value={forma.zahtevnost} onChange={spremeni}>
+          {ZAHTEVNOSTI.map((z) => (
+            <option key={z.vrednost} value={z.vrednost}>{z.oznaka}</option>
+          ))}
+        </select>
+      </label>
       <p>
         Čas (min): <input name="casKuhanja" type="number" value={forma.casKuhanja} onChange={spremeni} />{" "}
         Porcije: <input name="porcije" type="number" value={forma.porcije} onChange={spremeni} />
