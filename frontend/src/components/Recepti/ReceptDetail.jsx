@@ -20,7 +20,7 @@ export default function ReceptDetail() {
 
 
       return (
-        <div>
+        <div className="kartica">
       <Link to="/">Nazaj</Link>
       <h2>{recept.naslov}</h2>
       <p>Čas kuhanja: {recept.casKuhanja} min, zahtevnost: {oznakaZahtevnosti(recept.zahtevnost)}</p>

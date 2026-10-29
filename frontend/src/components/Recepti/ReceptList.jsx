@@ -27,7 +27,7 @@ export default function ReceptList() {
 
     return (
         <div>
-            <div>
+            <div className="filtri">
                 <input
                     name="iskanje"
                     placeholder="Išči po naslovu..."
@@ -57,18 +57,18 @@ export default function ReceptList() {
                     ))}
                 </select>
 
-                <button type="button" onClick={() => setFiltri(PRAZNI_FILTRI)}>
+                <button type="button" className="gumb-sekundarni" onClick={() => setFiltri(PRAZNI_FILTRI)}>
                     Počisti filtre
                 </button>
             </div>
 
-            {recepti.length === 0 && <p>Ni zadetkov.</p>}
+            {recepti.length === 0 && <p className="prazno">Ni zadetkov.</p>}
 
-            <ul>
+            <ul className="seznam">
                 {recepti.map((r) => (
                     <li key={r.id}>
-                        <Link to={`/recepti/${r.id}`}>{r.naslov}</Link>{" "}
-                        ({r.porcije} porcij){" "}
+                        <Link className="naslov" to={`/recepti/${r.id}`}>{r.naslov}</Link>{" "}
+                        <span className="meta">({r.porcije} porcij){" "}</span>
                         <Link to={`/recepti/${r.id}/uredi`}>Uredi</Link>{" "}
                         <button onClick={() => izbrisi(r.id)}>Izbriši</button>
                     </li>

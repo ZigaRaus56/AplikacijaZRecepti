@@ -50,7 +50,7 @@ export default function ReceptForm(){
     );
   }
   return (
-    <form onSubmit={shrani}>
+    <form onSubmit={shrani} className="obrazec">
       <h2>{id ? "Uredi recept" : "Nov recept"}</h2>
 
       <p><input name="naslov" placeholder="Naslov" value={forma.naslov}onChange={spremeni} required /></p>
@@ -78,14 +78,14 @@ export default function ReceptForm(){
 
       <h3>Sestavine</h3>
       {forma.sestavine.map((s, i) => (
-        <p key={i}>
+        <p key={i} className="vrstica">
           <input placeholder="Naziv" value={s.naziv}onChange={(e) => spremeniSestavino(i, "naziv", e.target.value)} />{" "}
           <input type="number" step="any" placeholder="Količina" value={s.kolicina}onChange={(e) => spremeniSestavino(i, "kolicina", e.target.value)} />{" "}
           <input placeholder="Enota" value={s.enota}onChange={(e) => spremeniSestavino(i, "enota", e.target.value)} />{" "}
-          <button type="button" onClick={() => odstraniSestavino(i)}>✕</button>
+          <button type="button" className="gumbBrisi" onClick={() => odstraniSestavino(i)}>✕</button>
         </p>
       ))}
-      <button type="button" onClick={dodajSestavino}>+ Dodaj sestavino</button>
+      <button type="button" className="gumb-sekundarni" onClick={dodajSestavino}>+ Dodaj sestavino</button>
 
       <h3>Navodila</h3>
       <p><textarea name="navodila" rows="5" value={forma.navodila ?? ""} onChange={spremeni} /></p>
