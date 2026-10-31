@@ -10,8 +10,8 @@ Aplikacija recepti bo spletna aplikacija kjer si bodo uporabniki lahko shranjeva
 -Brisanje receptov
 
 
-![Vnos recepta](Slike/post.png)
-![Branje receptov](Slike/get.png)
-![Posodobitev recepta](Slike/put.png)
-![Brisanje recepta](Slike/delete.png)
+![Vnos recepta](slike/post.png)
+![Branje receptov](slike/get.png)
+![Posodobitev recepta](slike/put.png)
+![Brisanje recepta](slike/delete.png)
 
